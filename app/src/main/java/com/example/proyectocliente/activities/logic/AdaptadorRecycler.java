@@ -1,4 +1,4 @@
-package com.example.proyectocliente;
+package com.example.proyectocliente.activities.logic;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,22 +10,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
+import com.example.proyectocliente.R;
+
+public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.ViewHolder> {
     // root?
     private LayoutInflater inflater;
 
-    public Adaptador(Context context){
+    public AdaptadorRecycler(Context context){
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     @NonNull
     @Override
-    public Adaptador.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdaptadorRecycler.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.simple_element, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Adaptador.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdaptadorRecycler.ViewHolder holder, int position) {
         //information
     }
 

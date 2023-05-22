@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FormularioActivity"
+    tools:context=".activities.FormularioActivity"
     tools:ignore="ExtraText">
 
     <Spinner
@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="139dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="536dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +60,7 @@
         android:layout_marginStart="47dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="360dp"
+        android:layout_marginBottom="300dp"
         android:text="Aceptar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,19 +74,19 @@
         android:layout_marginStart="87dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="47dp"
-        android:layout_marginBottom="360dp"
+        android:layout_marginBottom="300dp"
         android:text="Cancelar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonAceptar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
-
+<!--jugar con la visibilidad -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="43dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="parent"

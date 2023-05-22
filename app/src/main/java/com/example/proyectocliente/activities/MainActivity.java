@@ -1,4 +1,4 @@
-package com.example.proyectocliente;
+package com.example.proyectocliente.activities;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.proyectocliente.activities.logic.AdaptadorRecycler;
+import com.example.proyectocliente.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -29,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler);
         addUser = findViewById(R.id.addUser);
 
-        Adaptador adaptador = new Adaptador(this);
-        recyclerView.setAdapter(adaptador);
+        AdaptadorRecycler adaptadorRecycler = new AdaptadorRecycler(this);
+        recyclerView.setAdapter(adaptadorRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ActivityResultLauncher<Intent> someActivityResultLauncher =
@@ -56,22 +58,19 @@ public class MainActivity extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                int posTarget = target.getAdapterPosition();
-                //remove , add
-                recyclerView.getAdapter().notifyItemMoved(viewHolder.getAdapterPosition(),target.getAdapterPosition());
-                return true;
+                return false;   //para ordenar
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 //remove usuario
-                adaptador.notifyItemRemoved(position);
+                adaptadorRecycler.notifyItemRemoved(position);
                 Snackbar.make(recyclerView,"deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //addUser
-                        adaptador.notifyItemInserted(position);
+                        adaptadorRecycler.notifyItemInserted(position);
                     }
                 }).show();
             }
