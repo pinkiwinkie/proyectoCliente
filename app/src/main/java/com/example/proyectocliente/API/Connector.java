@@ -22,7 +22,7 @@ public class Connector {
     }
 
     public <T> List<T> getAsList(Class<T> clazz, String path){
-        String url = Parameters.URL + Parameters.URL_OPTIONS + path;
+        String url = Parameters.URL + path;
         String jsonResponse = callMethodsObject.get(url);
         if(jsonResponse != null)
             return conversor.fromJsonList(jsonResponse, clazz);

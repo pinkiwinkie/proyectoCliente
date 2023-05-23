@@ -15,13 +15,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.proyectocliente.API.APIService;
+import com.example.proyectocliente.API.Connector;
 import com.example.proyectocliente.activities.logic.AdaptadorRecycler;
 import com.example.proyectocliente.R;
+import com.example.proyectocliente.activities.model.Usuario;
+import com.example.proyectocliente.base.BaseActivity;
 import com.example.proyectocliente.base.CallInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity implements CallInterface {
+public class MainActivity extends BaseActivity implements CallInterface {
     private RecyclerView recyclerView;
     private FloatingActionButton addUser;
 
@@ -81,15 +84,26 @@ public class MainActivity extends AppCompatActivity implements CallInterface {
         });
 
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+
+        showProgress();
+        executeCall(this);
+
     }
 
     @Override
     public void doInBackground() {
+        usuarios = Connector.getConector().getAsList(Usuario.class,"usuariosdb/");
+        oficios...
 
     }
 
     @Override
     public void doInUI() {
+        hideProgress();
+        AdaptadorRecycler adaptador = new AdaptadorRecycler(this);
 
+
+        adaptador.setData(usuarios, oficios);
     }
 }

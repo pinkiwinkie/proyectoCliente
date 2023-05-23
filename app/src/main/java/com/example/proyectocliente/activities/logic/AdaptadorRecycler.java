@@ -15,6 +15,10 @@ import com.example.proyectocliente.R;
 public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.ViewHolder> {
     // root?
     private LayoutInflater inflater;
+    public void setData(List<Usuario> usuarioList, List<Oficio> oficioList){
+        this.usuarios = usuarioList;
+        this.oficios = oficioList;
+    }
 
     public AdaptadorRecycler(Context context){
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -29,6 +33,7 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
     @Override
     public void onBindViewHolder(@NonNull AdaptadorRecycler.ViewHolder holder, int position) {
         //information
+        //         ImageDownloader.downloadImage(Parameters.URL_IMAGE + oficios.imageurl, holder.image);
     }
 
     @Override
