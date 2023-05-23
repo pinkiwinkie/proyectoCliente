@@ -6,10 +6,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.proyectocliente.R;
-import com.example.proyectocliente.activities.model.Root.*;
+import com.example.proyectocliente.activities.model.Oficio;
+import com.example.proyectocliente.base.BaseActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class FormularioActivity extends AppCompatActivity {
+public class FormularioActivity extends BaseActivity {
     private TextInputEditText tietnombre,
             tietapellidos;
     private Spinner spinner;

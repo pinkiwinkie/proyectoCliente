@@ -14,14 +14,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.proyectocliente.API.APIService;
 import com.example.proyectocliente.activities.logic.AdaptadorRecycler;
 import com.example.proyectocliente.R;
+import com.example.proyectocliente.base.CallInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CallInterface {
     private RecyclerView recyclerView;
     private FloatingActionButton addUser;
+
+    private APIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,5 +81,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public void doInBackground() {
+
+    }
+
+    @Override
+    public void doInUI() {
+
     }
 }
