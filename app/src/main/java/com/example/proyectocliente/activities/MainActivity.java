@@ -25,6 +25,7 @@ import com.example.proyectocliente.base.CallInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements CallInterface {
@@ -63,7 +64,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
         addUser.setOnClickListener(view -> {
             Intent intent = new Intent(this, FormularioActivity.class);
-            intent.putExtra("oficios",oficios);
+            intent.putExtra("oficios",(ArrayList)oficios);
             someActivityResultLauncher.launch(intent);
         });
 

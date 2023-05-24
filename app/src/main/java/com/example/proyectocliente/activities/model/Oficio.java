@@ -1,6 +1,8 @@
 package com.example.proyectocliente.activities.model;
 
-public class Oficio {
+import java.io.Serializable;
+
+public class Oficio implements Serializable {
     private int id;
     private String description,
             imageUrl;
@@ -36,6 +38,6 @@ public class Oficio {
 
     @Override
     public String toString() {
-        return description + " " + imageUrl;
+        return description;
     }
 }
