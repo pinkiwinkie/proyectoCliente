@@ -18,17 +18,23 @@ import com.example.proyectocliente.API.APIService;
 import com.example.proyectocliente.API.Connector;
 import com.example.proyectocliente.activities.logic.AdaptadorRecycler;
 import com.example.proyectocliente.R;
+import com.example.proyectocliente.activities.model.Oficio;
 import com.example.proyectocliente.activities.model.Usuario;
 import com.example.proyectocliente.base.BaseActivity;
 import com.example.proyectocliente.base.CallInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
+
 public class MainActivity extends BaseActivity implements CallInterface {
     private RecyclerView recyclerView;
     private FloatingActionButton addUser;
 
     private APIService apiService;
+    private List<Usuario> usuarios;
+    private List<Oficio> oficios;
+    private AdaptadorRecycler adaptadorRecycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +44,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
         recyclerView = findViewById(R.id.recycler);
         addUser = findViewById(R.id.addUser);
 
-        AdaptadorRecycler adaptadorRecycler = new AdaptadorRecycler(this);
+        adaptadorRecycler = new AdaptadorRecycler(this);
         recyclerView.setAdapter(adaptadorRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -85,7 +91,6 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-
         showProgress();
         executeCall(this);
 
@@ -94,16 +99,16 @@ public class MainActivity extends BaseActivity implements CallInterface {
     @Override
     public void doInBackground() {
         usuarios = Connector.getConector().getAsList(Usuario.class,"usuariosdb/");
-        oficios...
+       // oficios...
 
     }
 
     @Override
     public void doInUI() {
         hideProgress();
-        AdaptadorRecycler adaptador = new AdaptadorRecycler(this);
-
-
-        adaptador.setData(usuarios, oficios);
+        usuarios = Connector.getConector().getAsList(Usuario.class,"usuariosdb/");
+        adaptadorRecycler.setData(usuarios,oficios);
+        adaptadorRecycler.notifyDataSetChanged();
+       // adaptador.setData(usuarios, oficios);
     }
 }

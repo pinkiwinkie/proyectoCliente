@@ -11,17 +11,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectocliente.R;
+import com.example.proyectocliente.activities.model.Oficio;
+import com.example.proyectocliente.activities.model.Usuario;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.ViewHolder> {
     // root?
+    private List<Usuario> usuarios;
+    private List<Oficio> oficios;
     private LayoutInflater inflater;
-    public void setData(List<Usuario> usuarioList, List<Oficio> oficioList){
-        this.usuarios = usuarioList;
-        this.oficios = oficioList;
-    }
+    private Context context;
+
 
     public AdaptadorRecycler(Context context){
+        this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        usuarios = new ArrayList<>();
+        oficios = new ArrayList<>();
     }
     @NonNull
     @Override
@@ -32,14 +40,19 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorRecycler.ViewHolder holder, int position) {
-        //information
+        Usuario user = usuarios.get(position);
+        holder.nombre.setText(user.getLastName().concat(", ").concat(user.getName()));
         //         ImageDownloader.downloadImage(Parameters.URL_IMAGE + oficios.imageurl, holder.image);
     }
 
     @Override
     public int getItemCount() {
         //root.size
-        return 0;
+        return usuarios.size();
+    }
+    public void setData(List<Usuario> usuarioList, List<Oficio> oficioList){
+        this.usuarios = usuarioList;
+        this.oficios = oficioList;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
