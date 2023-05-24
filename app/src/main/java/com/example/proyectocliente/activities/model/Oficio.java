@@ -6,7 +6,7 @@ public class Oficio {
     private int id;
     private String description;
 
-    public Oficio(int id, String description, Blob image) {
+    public Oficio(int id, String description) {
         this.id = id;
         this.description = description;
     }

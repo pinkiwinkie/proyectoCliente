@@ -99,14 +99,13 @@ public class MainActivity extends BaseActivity implements CallInterface {
     @Override
     public void doInBackground() {
         usuarios = Connector.getConector().getAsList(Usuario.class,"usuariosdb/");
-       // oficios...
-
+        oficios = Connector.getConector().getAsList(Oficio.class, "oficiosdb/");
     }
 
     @Override
     public void doInUI() {
         hideProgress();
-        usuarios = Connector.getConector().getAsList(Usuario.class,"usuariosdb/");
+     //   usuarios = Connector.getConector().getAsList(Usuario.class,"usuariosdb/");
         adaptadorRecycler.setData(usuarios,oficios);
         adaptadorRecycler.notifyDataSetChanged();
        // adaptador.setData(usuarios, oficios);

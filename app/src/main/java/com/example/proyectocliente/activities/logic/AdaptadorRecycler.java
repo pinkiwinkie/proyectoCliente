@@ -42,13 +42,16 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
     public void onBindViewHolder(@NonNull AdaptadorRecycler.ViewHolder holder, int position) {
         Usuario user = usuarios.get(position);
         holder.nombre.setText(user.getLastName().concat(", ").concat(user.getName()));
+        int idImage = user.getIdOficio();
+        Oficio oficio = oficios.get(position);
+        if (oficio.getId() == idImage)
+            holder.oficio.setText(oficio.getDescription());
         //         ImageDownloader.downloadImage(Parameters.URL_IMAGE + oficios.imageurl, holder.image);
     }
 
     @Override
     public int getItemCount() {
-        //root.size
-        return usuarios.size();
+        return usuarios.size() ;
     }
     public void setData(List<Usuario> usuarioList, List<Oficio> oficioList){
         this.usuarios = usuarioList;
