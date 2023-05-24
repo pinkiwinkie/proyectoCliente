@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectocliente.R;
 import com.example.proyectocliente.activities.model.Oficio;
 import com.example.proyectocliente.activities.model.Usuario;
+import com.example.proyectocliente.base.ImageDownloader;
+import com.example.proyectocliente.base.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,18 +44,16 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
     public void onBindViewHolder(@NonNull AdaptadorRecycler.ViewHolder holder, int position) {
         Usuario user = usuarios.get(position);
         holder.nombre.setText(user.getLastName().concat(", ").concat(user.getName()));
-        int idImage = user.getIdOficio();
-        Oficio oficio = oficios.get(position);
-        if (oficio.getId() == idImage)
-            holder.oficio.setText(oficio.getDescription());
-        //         ImageDownloader.downloadImage(Parameters.URL_IMAGE + oficios.imageurl, holder.image);
+        Oficio oficio = oficios.get(usuarios.get(position).getIdOficio()-1);
+        holder.oficio.setText(oficio.getDescription());
+        ImageDownloader.downloadImage(inflater.getContext(),Parameters.URL_IMAGE + oficio.getImageUrl(), holder.image,R.mipmap.ic_launcher);
     }
 
     @Override
     public int getItemCount() {
-        return usuarios.size() ;
+        return usuarios.size();
     }
-    public void setData(List<Usuario> usuarioList, List<Oficio> oficioList){
+    public void setData(List<Usuario> usuarioList, List<Oficio> oficioList) {
         this.usuarios = usuarioList;
         this.oficios = oficioList;
     }

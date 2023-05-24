@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
         addUser.setOnClickListener(view -> {
             Intent intent = new Intent(this, FormularioActivity.class);
+            intent.putExtra("oficios",oficios);
             someActivityResultLauncher.launch(intent);
         });
 
@@ -93,7 +94,6 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
         showProgress();
         executeCall(this);
-
     }
 
     @Override
@@ -105,9 +105,8 @@ public class MainActivity extends BaseActivity implements CallInterface {
     @Override
     public void doInUI() {
         hideProgress();
-     //   usuarios = Connector.getConector().getAsList(Usuario.class,"usuariosdb/");
+        System.out.println(oficios);
         adaptadorRecycler.setData(usuarios,oficios);
         adaptadorRecycler.notifyDataSetChanged();
-       // adaptador.setData(usuarios, oficios);
     }
 }

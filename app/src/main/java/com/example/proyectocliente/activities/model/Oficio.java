@@ -1,10 +1,9 @@
 package com.example.proyectocliente.activities.model;
 
-import java.sql.Blob;
-
 public class Oficio {
     private int id;
-    private String description;
+    private String description,
+            imageUrl;
 
     public Oficio(int id, String description) {
         this.id = id;
@@ -27,8 +26,16 @@ public class Oficio {
         this.description = description;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
-        return description;
+        return description + " " + imageUrl;
     }
 }

@@ -2,6 +2,7 @@ package com.example.proyectocliente.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +29,10 @@ public class FormularioActivity extends BaseActivity {
         bAceptar = findViewById(R.id.buttonAceptar);
         bCancelar = findViewById(R.id.buttonCancelar);
 
-        //arrayAdaptar -> spinner
+//        ArrayAdapter<Oficio> myAdapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_spinner_item,
+//                )
+//        spinner.setAdapter(myAdapter);
 
         bCancelar.setOnClickListener(v -> {
             Intent i = new Intent();
