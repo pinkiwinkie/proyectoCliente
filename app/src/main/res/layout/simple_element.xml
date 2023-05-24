@@ -11,17 +11,17 @@
         android:layout_marginStart="24dp"
         android:text="Nombre y apellidos"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/imageViewFormulario"
+        app:layout_constraintTop_toTopOf="@+id/imageViewFormulario" />
     <TextView
         android:id="@+id/textViewOficio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="oficio"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFormulario"
         app:layout_constraintStart_toStartOf="@+id/textViewNombre" />
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewFormulario"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"

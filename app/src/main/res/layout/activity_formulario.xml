@@ -15,7 +15,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="60dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageViewFormulario"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.012" />
 
@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 <!--jugar con la visibilidad -->
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewFormulario"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="28dp"

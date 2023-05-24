@@ -67,7 +67,7 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
             super(itemView);
             nombre = itemView.findViewById(R.id.textViewNombre);
             oficio = itemView.findViewById(R.id.textViewOficio);
-            image = itemView.findViewById(R.id.imageView);
+            image = itemView.findViewById(R.id.imageViewFormulario);
         }
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,7 +29,7 @@ public class FormularioActivity extends BaseActivity  {
     private Spinner spinner;
     private Button bAceptar,//primero recoger los datos y luego implementar executeCall(new Call Interface){ // y asi poder hacer la llamada en el bg
             bCancelar;          //se implementan los metodos
-
+    private ImageView imagennnn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,8 @@ public class FormularioActivity extends BaseActivity  {
         spinner = findViewById(R.id.spinner);
         bAceptar = findViewById(R.id.buttonAceptar);
         bCancelar = findViewById(R.id.buttonCancelar);
+        imagennnn = findViewById(R.id.imageViewFormulario);
+
         Bundle bundle = getIntent().getExtras();
         ArrayList<Oficio> oficioList = (ArrayList) bundle.getSerializable("oficios");
         ArrayAdapter<Oficio> myAdapter = new ArrayAdapter<>(this,
@@ -49,7 +52,7 @@ public class FormularioActivity extends BaseActivity  {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ImageDownloader.downloadImage(view.getContext(), Parameters.URL_IMAGE + oficios.get(i-1).getImageUrl(), imagennnn,R.mipmap.ic_launcher);
+                ImageDownloader.downloadImage(view.getContext(), Parameters.URL_IMAGE + oficioList.get(i-1).getImageUrl(), imagennnn,R.mipmap.ic_launcher);
             }
 
             @Override
