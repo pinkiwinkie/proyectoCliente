@@ -58,12 +58,23 @@ public class MainActivity extends BaseActivity implements CallInterface {
                                         Toast.LENGTH_LONG).show();
                             else if (result.getResultCode() == Activity.RESULT_OK) {
                                 Intent data = result.getData();
-
+                                Usuario usuario;
+                                if (data != null){
+                                    usuario = (Usuario)
+                                            data.getExtras().getSerializable("usuario");
+                                    System.out.println(usuario);
+                                    usuarios.add(usuario);
+                                    adaptadorRecycler.notifyDataSetChanged();
+                                    Toast.makeText(this, "Nuevo Usuario " +
+                                                    usuario.getName() + " " + usuario.getLastName(),
+                                            Toast.LENGTH_LONG).show();
+                                }else
+                                    Toast.makeText(this, "No puede haber campos vacios", Toast.LENGTH_LONG).show();
                             }
                         });
 
         addUser.setOnClickListener(view -> {
-            Intent intent = new Intent(this, FormularioActivity.class);
+            Intent intent = new Intent(MainActivity.this, FormularioActivity.class);
             intent.putExtra("oficios",(ArrayList)oficios);
             someActivityResultLauncher.launch(intent);
         });
@@ -106,7 +117,6 @@ public class MainActivity extends BaseActivity implements CallInterface {
     @Override
     public void doInUI() {
         hideProgress();
-        System.out.println(oficios);
         adaptadorRecycler.setData(usuarios,oficios);
         adaptadorRecycler.notifyDataSetChanged();
     }

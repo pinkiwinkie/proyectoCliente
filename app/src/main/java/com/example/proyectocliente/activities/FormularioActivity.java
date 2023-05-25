@@ -49,17 +49,20 @@ public class FormularioActivity extends BaseActivity  {
                 oficioList);
         spinner.setAdapter(myAdapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ImageDownloader.downloadImage(view.getContext(), Parameters.URL_IMAGE + oficioList.get(i-1).getImageUrl(), imagennnn,R.mipmap.ic_launcher);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (i >= 0 && i < oficioList.size()) {
+//                    String imageUrl = Parameters.URL_IMAGE + oficioList.get(i - 1).getImageUrl();
+//                    ImageDownloader.downloadImage(view.getContext(), imageUrl, imagennnn, R.mipmap.ic_launcher);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                imagennnn.setImageResource(R.mipmap.ic_launcher);
+//            }
+//        });
 
         bCancelar.setOnClickListener(v -> {
             Intent i = new Intent();
@@ -72,19 +75,20 @@ public class FormularioActivity extends BaseActivity  {
             String nombre = tietnombre.getText().toString();
             String apellidos = tietapellidos.getText().toString();
             Oficio oficio = (Oficio) spinner.getSelectedItem();
-            //Usuario usuario = ...
+            Usuario usuario = new Usuario(nombre,apellidos,oficio.getId());
+            System.out.println(usuario);
             //DAR DE ALTA EN BBDD AQUÍ
             executeCall(new CallInterface() {
                 @Override
                 public void doInBackground() {
-//                    Connector.getConector().post(Usuario.class,usuario,"usuariosdb/");
+                    Connector.getConector().post(Usuario.class,usuario,"usuariosdb/");
                 }
 
                 @Override
                 public void doInUI() {
-//                    Intent intent = ....
+                       Intent i = new Intent(FormularioActivity.this, MainActivity.class);
+                       i.putExtra("usuario",usuario);
 //                    enviar usuario a la otra actividad
-
                 }
             });
             setResult(RESULT_OK,i);
