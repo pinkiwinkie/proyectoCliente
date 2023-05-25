@@ -93,11 +93,10 @@ public class FormularioActivity extends BaseActivity {
                     i = new Intent(FormularioActivity.this, MainActivity.class);
                     i.putExtra("usuario", usuarioExtra);
                     setResult(RESULT_OK, i);
+                    finish();
 //                    enviar usuario a la otra actividad
                 }
             });
-            finish();
         });
-
     }
 }

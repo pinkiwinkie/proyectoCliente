@@ -51,15 +51,13 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
         ActivityResultLauncher<Intent> someActivityResultLauncher =
                 registerForActivityResult(
+
                         new ActivityResultContracts.StartActivityForResult(),
                         result -> {
-                            if (result.getResultCode() == RESULT_CANCELED)
-                                Toast.makeText(this, "Cancelado por el usuario",
-                                        Toast.LENGTH_LONG).show();
-                            else if (result.getResultCode() == Activity.RESULT_OK) {
+                            if (result.getResultCode() == Activity.RESULT_OK) {
                                 Intent data = result.getData();
                                 Usuario usuario;
-                                if (data != null){
+                                if (data != null) {
                                     usuario = (Usuario)
                                             data.getExtras().getSerializable("usuario");
                                     System.out.println(usuario);
@@ -68,8 +66,11 @@ public class MainActivity extends BaseActivity implements CallInterface {
                                     Toast.makeText(this, "Nuevo Usuario " +
                                                     usuario.getName() + " " + usuario.getLastName(),
                                             Toast.LENGTH_LONG).show();
-                                }else
+                                } else
                                     Toast.makeText(this, "No puede haber campos vacios", Toast.LENGTH_LONG).show();
+                            } else if (result.getResultCode() == Activity.RESULT_CANCELED) {
+                                Toast.makeText(this, "Cancelado por el usuario",
+                                        Toast.LENGTH_LONG).show();
                             }
                         });
 

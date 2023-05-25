@@ -1,6 +1,7 @@
 package com.example.proyectocliente.activities.logic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectocliente.R;
+import com.example.proyectocliente.activities.FormularioActivity;
 import com.example.proyectocliente.activities.model.Oficio;
 import com.example.proyectocliente.activities.model.Usuario;
 import com.example.proyectocliente.base.ImageDownloader;
@@ -47,6 +49,13 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
         Oficio oficio = oficios.get(usuarios.get(position).getIdOficio()-1);
         holder.oficio.setText(oficio.getDescription());
         ImageDownloader.downloadImage(inflater.getContext(),Parameters.URL_IMAGE + oficio.getImageUrl(), holder.image,R.mipmap.ic_launcher);
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), FormularioActivity.class);
+//            intent.putExtra("root",root); //poner getSerializable cuando se reciba en 3_activity
+//            intent.putExtra("position", position);
+            view.getContext().startActivity(intent);
+        });
     }
 
     @Override
