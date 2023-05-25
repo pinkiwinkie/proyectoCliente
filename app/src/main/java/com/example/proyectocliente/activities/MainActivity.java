@@ -34,6 +34,8 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
     private List<Usuario> usuarios;
     private List<Oficio> oficios;
     private AdaptadorRecycler adaptadorRecycler;
+    private ActivityResultLauncher<Intent> launcherUpdateUser;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,7 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
                                         Toast.LENGTH_LONG).show();
                             }
                         });
-        ActivityResultLauncher<Intent> launcherUpdateUser =
+        launcherUpdateUser  =
                 registerForActivityResult(
 
                         new ActivityResultContracts.StartActivityForResult(),
@@ -98,20 +100,25 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
+
                 //remove usuario
 
                 executeCall(new CallInterface() {
                     @Override
                     public void doInBackground() {
-                      //  Usuario usuario = Connector.getConector().delete(Usuario.class, "usuariosdb/");
+                        usuario = usuarios.get(position);
+                        int i = usuario.getId();
+                        usuarios.remove(position);
+                        usuario = Connector.getConector().delete(Usuario.class,"usuariosdb/"+i);
                     }
 
                     @Override
                     public void doInUI() {
-
+                        adaptadorRecycler.notifyItemRemoved(position);
+                      //  adaptadorRecycler.notifyDataSetChanged();
                     }
                 });
-                adaptadorRecycler.notifyItemRemoved(position);
+
                 Snackbar.make(recyclerView, "deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -124,10 +131,9 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
 
                             @Override
                             public void doInUI() {
-
+                                adaptadorRecycler.notifyItemInserted(position);
                             }
                         });
-                        adaptadorRecycler.notifyItemInserted(position);
                     }
                 }).show();
             }
@@ -156,6 +162,6 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
     public void onClick(View view) {
         Intent intent = new Intent(this, FormularioUpdate.class);
         intent.putExtra("oficios2", (ArrayList) oficios);
-        startActivity(intent);
+        launcherUpdateUser.launch(intent);
     }
 }

@@ -51,14 +51,6 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
         Oficio oficio = oficios.get(usuarios.get(position).getIdOficio()-1);
         holder.oficio.setText(oficio.getDescription());
         ImageDownloader.downloadImage(inflater.getContext(),Parameters.URL_IMAGE + oficio.getImageUrl(), holder.image,R.mipmap.ic_launcher);
-
-//        //clicar
-//        holder.itemView.setOnClickListener(view -> {
-//            Intent intent = new Intent(view.getContext(), FormularioUpdate.class);
-////            intent.putExtra("root",root); //poner getSerializable cuando se reciba en 3_activity
-////            intent.putExtra("position", position);
-//            view.getContext().startActivity(intent);
-//        });
     }
 
     @Override
