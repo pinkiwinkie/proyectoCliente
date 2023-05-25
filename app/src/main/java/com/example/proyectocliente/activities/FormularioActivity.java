@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectocliente.API.Connector;
@@ -23,13 +24,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FormularioActivity extends BaseActivity  {
+public class FormularioActivity extends BaseActivity {
     private TextInputEditText tietnombre,
             tietapellidos;
     private Spinner spinner;
     private Button bAceptar,//primero recoger los datos y luego implementar executeCall(new Call Interface){ // y asi poder hacer la llamada en el bg
             bCancelar;          //se implementan los metodos
     private ImageView imagennnn;
+    private Usuario usuarioExtra;
+    private  Intent i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,32 +70,32 @@ public class FormularioActivity extends BaseActivity  {
 
         bCancelar.setOnClickListener(v -> {
             Intent i = new Intent();
-            setResult(RESULT_CANCELED,i);
+            setResult(RESULT_CANCELED, i);
             finish();
         });
 
         bAceptar.setOnClickListener(v -> {
-            Intent i = new Intent();
+            i = new Intent();
             String nombre = tietnombre.getText().toString();
             String apellidos = tietapellidos.getText().toString();
             Oficio oficio = (Oficio) spinner.getSelectedItem();
-            Usuario usuario = new Usuario(nombre,apellidos,oficio.getId());
-            System.out.println(usuario);
+            Usuario usuario = new Usuario(nombre, apellidos, oficio.getId());
+
             //DAR DE ALTA EN BBDD AQUÍ
             executeCall(new CallInterface() {
                 @Override
                 public void doInBackground() {
-                    Connector.getConector().post(Usuario.class,usuario,"usuariosdb/");
+                    usuarioExtra = Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
                 }
 
                 @Override
                 public void doInUI() {
-                       Intent i = new Intent(FormularioActivity.this, MainActivity.class);
-                       i.putExtra("usuario",usuario);
+                    i = new Intent(FormularioActivity.this, MainActivity.class);
+                    i.putExtra("usuario", usuarioExtra);
+                    setResult(RESULT_OK, i);
 //                    enviar usuario a la otra actividad
                 }
             });
-            setResult(RESULT_OK,i);
             finish();
         });
 
