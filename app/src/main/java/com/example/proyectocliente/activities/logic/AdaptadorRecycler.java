@@ -27,6 +27,7 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
     private List<Oficio> oficios;
     private LayoutInflater inflater;
     private Context context;
+    private View.OnClickListener onClickListener;
 
 
     public AdaptadorRecycler(Context context){
@@ -39,6 +40,7 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
     @Override
     public AdaptadorRecycler.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.simple_element, parent, false);
+        view.setOnClickListener(onClickListener);
         return new ViewHolder(view);
     }
 
@@ -50,12 +52,13 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
         holder.oficio.setText(oficio.getDescription());
         ImageDownloader.downloadImage(inflater.getContext(),Parameters.URL_IMAGE + oficio.getImageUrl(), holder.image,R.mipmap.ic_launcher);
 
-        holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), FormularioUpdate.class);
-//            intent.putExtra("root",root); //poner getSerializable cuando se reciba en 3_activity
-//            intent.putExtra("position", position);
-            view.getContext().startActivity(intent);
-        });
+//        //clicar
+//        holder.itemView.setOnClickListener(view -> {
+//            Intent intent = new Intent(view.getContext(), FormularioUpdate.class);
+////            intent.putExtra("root",root); //poner getSerializable cuando se reciba en 3_activity
+////            intent.putExtra("position", position);
+//            view.getContext().startActivity(intent);
+//        });
     }
 
     @Override
@@ -65,6 +68,10 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
     public void setData(List<Usuario> usuarioList, List<Oficio> oficioList) {
         this.usuarios = usuarioList;
         this.oficios = oficioList;
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListener){
+        this.onClickListener = onClickListener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -79,4 +86,6 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
             image = itemView.findViewById(R.id.imageViewFormulario);
         }
     }
+
+
 }

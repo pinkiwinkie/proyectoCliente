@@ -28,11 +28,9 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements CallInterface {
+public class MainActivity extends BaseActivity implements CallInterface,View.OnClickListener {
     private RecyclerView recyclerView;
     private FloatingActionButton addUser;
-
-    private APIService apiService;
     private List<Usuario> usuarios;
     private List<Oficio> oficios;
     private AdaptadorRecycler adaptadorRecycler;
@@ -47,6 +45,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
         adaptadorRecycler = new AdaptadorRecycler(this);
         recyclerView.setAdapter(adaptadorRecycler);
+        adaptadorRecycler.setOnClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ActivityResultLauncher<Intent> launcherAddUser =
@@ -78,6 +77,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
                         new ActivityResultContracts.StartActivityForResult(),
                         result -> {
+
                         });
 
         addUser.setOnClickListener(view -> {
@@ -86,10 +86,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
             launcherAddUser.launch(intent);
         });
 
-        recyclerView.setOnClickListener(view -> {
-            Intent intent = new Intent(this, FormularioUpdate.class);
-            launcherUpdateUser.launch(intent);
-        });
+
         //dinamizacion del recycler
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT) {
@@ -102,12 +99,35 @@ public class MainActivity extends BaseActivity implements CallInterface {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 //remove usuario
-                // adaptadorRecycler.notifyItemRemoved(position);
+
+                executeCall(new CallInterface() {
+                    @Override
+                    public void doInBackground() {
+                      //  Usuario usuario = Connector.getConector().delete(Usuario.class, "usuariosdb/");
+                    }
+
+                    @Override
+                    public void doInUI() {
+
+                    }
+                });
+                adaptadorRecycler.notifyItemRemoved(position);
                 Snackbar.make(recyclerView, "deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //addUser
-                        //adaptadorRecycler.notifyItemInserted(position);
+                        executeCall(new CallInterface() {
+                            @Override
+                            public void doInBackground() {
+
+                            }
+
+                            @Override
+                            public void doInUI() {
+
+                            }
+                        });
+                        adaptadorRecycler.notifyItemInserted(position);
                     }
                 }).show();
             }
@@ -132,4 +152,10 @@ public class MainActivity extends BaseActivity implements CallInterface {
         adaptadorRecycler.notifyDataSetChanged();
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, FormularioUpdate.class);
+        intent.putExtra("oficios2", (ArrayList) oficios);
+        startActivity(intent);
+    }
 }
