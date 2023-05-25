@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectocliente.R;
-import com.example.proyectocliente.activities.FormularioActivity;
+import com.example.proyectocliente.activities.FormularioUpdate;
 import com.example.proyectocliente.activities.model.Oficio;
 import com.example.proyectocliente.activities.model.Usuario;
 import com.example.proyectocliente.base.ImageDownloader;
@@ -51,7 +51,7 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
         ImageDownloader.downloadImage(inflater.getContext(),Parameters.URL_IMAGE + oficio.getImageUrl(), holder.image,R.mipmap.ic_launcher);
 
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), FormularioActivity.class);
+            Intent intent = new Intent(view.getContext(), FormularioUpdate.class);
 //            intent.putExtra("root",root); //poner getSerializable cuando se reciba en 3_activity
 //            intent.putExtra("position", position);
             view.getContext().startActivity(intent);

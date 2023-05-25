@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
         recyclerView.setAdapter(adaptadorRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ActivityResultLauncher<Intent> someActivityResultLauncher =
+        ActivityResultLauncher<Intent> launcherAddUser =
                 registerForActivityResult(
 
                         new ActivityResultContracts.StartActivityForResult(),
@@ -73,13 +73,23 @@ public class MainActivity extends BaseActivity implements CallInterface {
                                         Toast.LENGTH_LONG).show();
                             }
                         });
+        ActivityResultLauncher<Intent> launcherUpdateUser =
+                registerForActivityResult(
+
+                        new ActivityResultContracts.StartActivityForResult(),
+                        result -> {
+                        });
 
         addUser.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, FormularioActivity.class);
-            intent.putExtra("oficios",(ArrayList)oficios);
-            someActivityResultLauncher.launch(intent);
+            intent.putExtra("oficios", (ArrayList) oficios);
+            launcherAddUser.launch(intent);
         });
 
+        recyclerView.setOnClickListener(view -> {
+            Intent intent = new Intent(this, FormularioUpdate.class);
+            launcherUpdateUser.launch(intent);
+        });
         //dinamizacion del recycler
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT) {
@@ -92,12 +102,12 @@ public class MainActivity extends BaseActivity implements CallInterface {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 //remove usuario
-                adaptadorRecycler.notifyItemRemoved(position);
-                Snackbar.make(recyclerView,"deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                // adaptadorRecycler.notifyItemRemoved(position);
+                Snackbar.make(recyclerView, "deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //addUser
-                        adaptadorRecycler.notifyItemInserted(position);
+                        //adaptadorRecycler.notifyItemInserted(position);
                     }
                 }).show();
             }
@@ -111,14 +121,15 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
     @Override
     public void doInBackground() {
-        usuarios = Connector.getConector().getAsList(Usuario.class,"usuariosdb/");
+        usuarios = Connector.getConector().getAsList(Usuario.class, "usuariosdb/");
         oficios = Connector.getConector().getAsList(Oficio.class, "oficiosdb/");
     }
 
     @Override
     public void doInUI() {
         hideProgress();
-        adaptadorRecycler.setData(usuarios,oficios);
+        adaptadorRecycler.setData(usuarios, oficios);
         adaptadorRecycler.notifyDataSetChanged();
     }
+
 }

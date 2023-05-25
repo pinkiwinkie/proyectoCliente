@@ -25,6 +25,9 @@
         <activity
             android:name=".activities.FormularioActivity"
             android:exported="false"/>
+        <activity
+            android:name=".activities.FormularioUpdate"
+            android:exported="false"/>
     </application>
 </manifest>
 
