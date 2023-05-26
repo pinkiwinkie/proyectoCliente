@@ -12,9 +12,11 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 public class MyProgressBar extends ProgressBar {
     private ViewGroup rootView;
+
     public MyProgressBar(Context context) {
         super(context);
     }
+
     public MyProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -23,17 +25,17 @@ public class MyProgressBar extends ProgressBar {
         super(context, attrs, defStyleAttr);
     }
 
-    public void initControl(ViewGroup rootView){
+    public void initControl(ViewGroup rootView) {
         this.rootView = rootView;
         center();
         this.rootView.addView(this);
     }
 
-    public void show(){
+    public void show() {
 
-        for(int i = 0; i <rootView.getChildCount(); i++){
+        for (int i = 0; i < rootView.getChildCount(); i++) {
             View child = rootView.getChildAt(i);
-            if(!child.equals(this))
+            if (!child.equals(this))
                 child.setVisibility(View.GONE);
             else
                 child.setVisibility(View.VISIBLE);
@@ -50,18 +52,17 @@ public class MyProgressBar extends ProgressBar {
         }
     }
 
-    public void center(){
+    public void center() {
         if (rootView instanceof ConstraintLayout) {
-            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams( ConstraintLayout.LayoutParams.WRAP_CONTENT,
+            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.bottomToBottom = ConstraintSet.PARENT_ID;
             layoutParams.endToEnd = ConstraintSet.PARENT_ID;
             layoutParams.startToStart = ConstraintSet.PARENT_ID;
             layoutParams.topToTop = ConstraintSet.PARENT_ID;
             this.setLayoutParams(layoutParams);
-        }
-        else if(rootView instanceof RelativeLayout){
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams( RelativeLayout.LayoutParams.WRAP_CONTENT,
+        } else if (rootView instanceof RelativeLayout) {
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
             layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);

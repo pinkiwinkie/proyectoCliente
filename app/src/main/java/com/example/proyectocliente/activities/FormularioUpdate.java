@@ -11,6 +11,7 @@ import com.example.proyectocliente.R;
 import com.example.proyectocliente.activities.model.Oficio;
 import com.example.proyectocliente.activities.model.Usuario;
 import com.example.proyectocliente.base.BaseActivity;
+import com.example.proyectocliente.base.CallInterface;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -19,11 +20,12 @@ public class FormularioUpdate extends BaseActivity {
     private TextInputEditText tietnombre,
             tietapellidos;
     private Spinner spinner;
-    private Button bAceptar,
+    private Button bGuardar,
             bCancelar;
     private ImageView imagennnn;
-    private Usuario usuarioExtra;
+    private Usuario usuarioSelected;
     private Intent i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +34,9 @@ public class FormularioUpdate extends BaseActivity {
         tietnombre = findViewById(R.id.tietNombreUpdate);
         tietapellidos = findViewById(R.id.tietApellidosUpdate);
         spinner = findViewById(R.id.spinnerUpdate);
-        bAceptar = findViewById(R.id.buttonGuardar);
+        bGuardar = findViewById(R.id.buttonGuardar);
         bCancelar = findViewById(R.id.buttonCancelarUpdate);
         imagennnn = findViewById(R.id.imageViewFormularioUpdate);
-
 
         Bundle bundle = getIntent().getExtras();
         ArrayList<Oficio> oficioList = (ArrayList) bundle.getSerializable("oficios2");
@@ -44,11 +45,28 @@ public class FormularioUpdate extends BaseActivity {
                 oficioList);
         spinner.setAdapter(myAdapter);
 
+        usuarioSelected = (Usuario) bundle.getSerializable("userSelected");
+        tietnombre.setText(usuarioSelected.getName());
+        tietapellidos.setText(usuarioSelected.getLastName());
+
         bCancelar.setOnClickListener(v -> {
             Intent i = new Intent();
             setResult(RESULT_CANCELED, i);
             finish();
         });
 
+        bGuardar.setOnClickListener(view -> {
+            executeCall(new CallInterface() {
+                @Override
+                public void doInBackground() {
+
+                }
+
+                @Override
+                public void doInUI() {
+
+                }
+            });
+        });
     }
 }

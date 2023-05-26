@@ -28,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements CallInterface,View.OnClickListener {
+public class MainActivity extends BaseActivity implements CallInterface, View.OnClickListener {
     private RecyclerView recyclerView;
     private FloatingActionButton addUser;
     private List<Usuario> usuarios;
@@ -51,9 +51,7 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ActivityResultLauncher<Intent> launcherAddUser =
-                registerForActivityResult(
-
-                        new ActivityResultContracts.StartActivityForResult(),
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                         result -> {
                             if (result.getResultCode() == Activity.RESULT_OK) {
                                 Intent data = result.getData();
@@ -74,7 +72,7 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
                                         Toast.LENGTH_LONG).show();
                             }
                         });
-        launcherUpdateUser  =
+        launcherUpdateUser =
                 registerForActivityResult(
 
                         new ActivityResultContracts.StartActivityForResult(),
@@ -109,13 +107,12 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
                         usuario = usuarios.get(position);
                         int i = usuario.getId();
                         usuarios.remove(position);
-                        usuario = Connector.getConector().delete(Usuario.class,"usuariosdb/"+i);
+                        usuario = Connector.getConector().delete(Usuario.class, "usuariosdb/" + i);
                     }
 
                     @Override
                     public void doInUI() {
                         adaptadorRecycler.notifyItemRemoved(position);
-                      //  adaptadorRecycler.notifyDataSetChanged();
                     }
                 });
 
@@ -126,12 +123,14 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
                         executeCall(new CallInterface() {
                             @Override
                             public void doInBackground() {
-
+                                Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
+                                usuarios.add(usuario);
                             }
 
                             @Override
                             public void doInUI() {
                                 adaptadorRecycler.notifyItemInserted(position);
+                                adaptadorRecycler.notifyDataSetChanged();
                             }
                         });
                     }
@@ -160,8 +159,12 @@ public class MainActivity extends BaseActivity implements CallInterface,View.OnC
 
     @Override
     public void onClick(View view) {
+        int position = recyclerView.getChildAdapterPosition(view);
+        Usuario user = usuarios.get(position);
+
         Intent intent = new Intent(this, FormularioUpdate.class);
         intent.putExtra("oficios2", (ArrayList) oficios);
+        intent.putExtra("userSelected", user);
         launcherUpdateUser.launch(intent);
     }
 }

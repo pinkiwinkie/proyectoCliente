@@ -25,7 +25,7 @@ public class FormularioActivity extends BaseActivity {
             bCancelar;
     private ImageView imagennnn;
     private Usuario usuarioExtra;
-    private  Intent i;
+    private Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

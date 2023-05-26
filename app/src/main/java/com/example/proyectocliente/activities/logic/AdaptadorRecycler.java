@@ -27,15 +27,16 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
     private List<Oficio> oficios;
     private LayoutInflater inflater;
     private Context context;
-    private View.OnClickListener onClickListener;
+    private static View.OnClickListener onClickListener;
 
 
-    public AdaptadorRecycler(Context context){
+    public AdaptadorRecycler(Context context) {
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         usuarios = new ArrayList<>();
         oficios = new ArrayList<>();
     }
+
     @NonNull
     @Override
     public AdaptadorRecycler.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,34 +49,36 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
     public void onBindViewHolder(@NonNull AdaptadorRecycler.ViewHolder holder, int position) {
         Usuario user = usuarios.get(position);
         holder.nombre.setText(user.getLastName().concat(", ").concat(user.getName()));
-        Oficio oficio = oficios.get(usuarios.get(position).getIdOficio()-1);
+        Oficio oficio = oficios.get(usuarios.get(position).getIdOficio() - 1);
         holder.oficio.setText(oficio.getDescription());
-        ImageDownloader.downloadImage(inflater.getContext(),Parameters.URL_IMAGE + oficio.getImageUrl(), holder.image,R.mipmap.ic_launcher);
+        ImageDownloader.downloadImage(inflater.getContext(), Parameters.URL_IMAGE + oficio.getImageUrl(), holder.image, R.mipmap.ic_launcher);
     }
 
     @Override
     public int getItemCount() {
         return usuarios.size();
     }
+
     public void setData(List<Usuario> usuarioList, List<Oficio> oficioList) {
         this.usuarios = usuarioList;
         this.oficios = oficioList;
     }
 
-    public void setOnClickListener(View.OnClickListener onClickListener){
+    public void setOnClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView nombre;
         private TextView oficio;
         private ImageView image;
 
-        public ViewHolder(@NonNull View itemView){
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.textViewNombre);
             oficio = itemView.findViewById(R.id.textViewOficio);
             image = itemView.findViewById(R.id.imageViewFormulario);
+            itemView.setOnClickListener(onClickListener);
         }
     }
 

@@ -14,14 +14,14 @@ public class CallMethods {
     private APIService service = retrofit.create(APIService.class);
     private static CallMethods callMethods;
 
-    public static CallMethods getCallMethodsObject(){
-        if(callMethods == null){
+    public static CallMethods getCallMethodsObject() {
+        if (callMethods == null) {
             callMethods = new CallMethods();
         }
         return callMethods;
     }
 
-    public String get(String url){
+    public String get(String url) {
         Call<ResponseBody> call = service.getCall(url);
         try {
             return call.execute().body().string();
@@ -31,7 +31,7 @@ public class CallMethods {
         return null;
     }
 
-    public String post(String url, RequestBody data){
+    public String post(String url, RequestBody data) {
         Call<ResponseBody> call = service.postCall(url, data);
         try {
             return call.execute().body().string();
@@ -41,7 +41,7 @@ public class CallMethods {
         return null;
     }
 
-    public String put(String url, RequestBody data){
+    public String put(String url, RequestBody data) {
         Call<ResponseBody> call = service.putCall(url, data);
         try {
             return call.execute().body().string();
@@ -51,7 +51,7 @@ public class CallMethods {
         return null;
     }
 
-    public String delete(String url){
+    public String delete(String url) {
         Call<ResponseBody> call = service.deleteCall(url);
         try {
             return call.execute().body().string();
