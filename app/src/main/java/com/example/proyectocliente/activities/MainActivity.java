@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                                             data.getExtras().getSerializable("usuario");
                                     System.out.println(usuario);
                                     usuarios.add(usuario);
+                                    adaptadorRecycler.notifyItemInserted(usuarios.indexOf(usuario));
                                     adaptadorRecycler.notifyDataSetChanged();
                                     Toast.makeText(this, "Nuevo Usuario " +
                                                     usuario.getName() + " " + usuario.getLastName(),
@@ -106,13 +107,15 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                     public void doInBackground() {
                         usuario = usuarios.get(position);
                         int i = usuario.getId();
-                        usuarios.remove(position);
+                        usuarios.remove(usuario);
                         usuario = Connector.getConector().delete(Usuario.class, "usuariosdb/" + i);
+
                     }
 
                     @Override
                     public void doInUI() {
                         adaptadorRecycler.notifyItemRemoved(position);
+                        adaptadorRecycler.notifyDataSetChanged();
                     }
                 });
 
@@ -124,7 +127,7 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                             @Override
                             public void doInBackground() {
                                 Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
-                                usuarios.add(usuario);
+                                usuarios.add(position,usuario);
                             }
 
                             @Override

@@ -2,6 +2,8 @@ package com.example.proyectocliente.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,6 +14,8 @@ import com.example.proyectocliente.activities.model.Oficio;
 import com.example.proyectocliente.activities.model.Usuario;
 import com.example.proyectocliente.base.BaseActivity;
 import com.example.proyectocliente.base.CallInterface;
+import com.example.proyectocliente.base.ImageDownloader;
+import com.example.proyectocliente.base.Parameters;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -48,6 +52,19 @@ public class FormularioUpdate extends BaseActivity {
         usuarioSelected = (Usuario) bundle.getSerializable("userSelected");
         tietnombre.setText(usuarioSelected.getName());
         tietapellidos.setText(usuarioSelected.getLastName());
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ImageDownloader.downloadImage(view.getContext(), Parameters.URL_IMAGE + oficioList.get(usuarioSelected.getIdOficio()-1).getImageUrl(),imagennnn, R.mipmap.ic_launcher);
+                spinner.setSelection(usuarioSelected.getIdOficio()-1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         bCancelar.setOnClickListener(v -> {
             Intent i = new Intent();
