@@ -78,7 +78,27 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
 
                         new ActivityResultContracts.StartActivityForResult(),
                         result -> {
-
+                            if (result.getResultCode() == Activity.RESULT_OK) {
+                                Intent data = result.getData();
+                                Usuario usuarioActualizado;
+                                if (data != null) {
+                                    usuarioActualizado = (Usuario)
+                                            data.getExtras().getSerializable("usuarioActualizado");
+                                    List<Usuario> listaUsuarios = adaptadorRecycler.getUsuarios();
+                                    int posicionUsuario = listaUsuarios.indexOf(usuarioActualizado);
+                                    if (posicionUsuario != -1) {
+                                        listaUsuarios.set(posicionUsuario, usuarioActualizado);
+                                        adaptadorRecycler.notifyDataSetChanged();
+                                    }
+                                    Toast.makeText(this, "Usuario Actualizado" +
+                                                    usuarioActualizado.getName() + " " + usuarioActualizado.getLastName(),
+                                            Toast.LENGTH_LONG).show();
+                                } else
+                                    Toast.makeText(this, "No actualizado", Toast.LENGTH_LONG).show();
+                            } else if (result.getResultCode() == Activity.RESULT_CANCELED) {
+                                Toast.makeText(this, "Cancelado por el usuario",
+                                        Toast.LENGTH_LONG).show();
+                            }
                         });
 
         addUser.setOnClickListener(view -> {

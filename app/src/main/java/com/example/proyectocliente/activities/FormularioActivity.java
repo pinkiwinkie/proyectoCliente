@@ -2,6 +2,8 @@ package com.example.proyectocliente.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +15,8 @@ import com.example.proyectocliente.activities.model.Oficio;
 import com.example.proyectocliente.activities.model.Usuario;
 import com.example.proyectocliente.base.BaseActivity;
 import com.example.proyectocliente.base.CallInterface;
+import com.example.proyectocliente.base.ImageDownloader;
+import com.example.proyectocliente.base.Parameters;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -23,7 +27,7 @@ public class FormularioActivity extends BaseActivity {
     private Spinner spinner;
     private Button bAceptar,
             bCancelar;
-    private ImageView imagennnn;
+    private ImageView imageOfice;
     private Usuario usuarioExtra;
     private Intent i;
 
@@ -37,7 +41,7 @@ public class FormularioActivity extends BaseActivity {
         spinner = findViewById(R.id.spinner);
         bAceptar = findViewById(R.id.buttonAceptar);
         bCancelar = findViewById(R.id.buttonCancelar);
-        imagennnn = findViewById(R.id.imageViewFormulario);
+        imageOfice = findViewById(R.id.imageViewFormulario);
 
         Bundle bundle = getIntent().getExtras();
         ArrayList<Oficio> oficioList = (ArrayList) bundle.getSerializable("oficios");
@@ -45,6 +49,18 @@ public class FormularioActivity extends BaseActivity {
                 android.R.layout.simple_spinner_item,
                 oficioList);
         spinner.setAdapter(myAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ImageDownloader.downloadImage(view.getContext(), Parameters.URL_IMAGE + oficioList.get(i).getImageUrl(), imageOfice, R.mipmap.ic_launcher);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         bCancelar.setOnClickListener(v -> {
             Intent i = new Intent();

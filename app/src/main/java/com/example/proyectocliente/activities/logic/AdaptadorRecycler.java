@@ -64,6 +64,16 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
         this.oficios = oficioList;
     }
 
+    public void actualizarUsuarios(List<Usuario> nuevaListaUsuarios) {
+        usuarios.clear();
+        usuarios.addAll(nuevaListaUsuarios);
+    }
+
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
     public void setOnClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }

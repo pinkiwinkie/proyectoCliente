@@ -9,6 +9,13 @@ public class Usuario implements Serializable {
             lastName;
     private int idOficio;
 
+    public Usuario(int id, String name, String lastName, int idOficio) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.idOficio = idOficio;
+    }
+
     public Usuario(String name, String lastName, int idOficio) {
         this.name = name;
         this.lastName = lastName;

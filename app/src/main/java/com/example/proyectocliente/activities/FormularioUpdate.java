@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.example.proyectocliente.API.Connector;
 import com.example.proyectocliente.R;
 import com.example.proyectocliente.activities.model.Oficio;
 import com.example.proyectocliente.activities.model.Usuario;
@@ -26,8 +27,8 @@ public class FormularioUpdate extends BaseActivity {
     private Spinner spinner;
     private Button bGuardar,
             bCancelar;
-    private ImageView imagennnn;
-    private Usuario usuarioSelected;
+    private ImageView imageOficio;
+    private Usuario usuarioSelected, usuarioExtra;
     private Intent i;
 
     @Override
@@ -40,7 +41,7 @@ public class FormularioUpdate extends BaseActivity {
         spinner = findViewById(R.id.spinnerUpdate);
         bGuardar = findViewById(R.id.buttonGuardar);
         bCancelar = findViewById(R.id.buttonCancelarUpdate);
-        imagennnn = findViewById(R.id.imageViewFormularioUpdate);
+        imageOficio = findViewById(R.id.imageViewFormularioUpdate);
 
         Bundle bundle = getIntent().getExtras();
         ArrayList<Oficio> oficioList = (ArrayList) bundle.getSerializable("oficios2");
@@ -53,11 +54,13 @@ public class FormularioUpdate extends BaseActivity {
         tietnombre.setText(usuarioSelected.getName());
         tietapellidos.setText(usuarioSelected.getLastName());
 
+        int selectedPosition = usuarioSelected.getIdOficio() - 1;
+        spinner.setSelection(selectedPosition);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ImageDownloader.downloadImage(view.getContext(), Parameters.URL_IMAGE + oficioList.get(usuarioSelected.getIdOficio()-1).getImageUrl(),imagennnn, R.mipmap.ic_launcher);
-                spinner.setSelection(usuarioSelected.getIdOficio()-1);
+                String imageUrl = oficioList.get(i).getImageUrl();
+                ImageDownloader.downloadImage(view.getContext(), Parameters.URL_IMAGE + imageUrl, imageOficio, R.mipmap.ic_launcher);
             }
 
             @Override
@@ -73,15 +76,24 @@ public class FormularioUpdate extends BaseActivity {
         });
 
         bGuardar.setOnClickListener(view -> {
+            i = new Intent();
+            String nombre = tietnombre.getText().toString();
+            String apellidos = tietapellidos.getText().toString();
+            Oficio oficio = (Oficio) spinner.getSelectedItem();
+            int id = usuarioSelected.getId();
+            Usuario usuario = new Usuario(id,nombre, apellidos, oficio.getId());
             executeCall(new CallInterface() {
                 @Override
                 public void doInBackground() {
-
+                   usuarioExtra = Connector.getConector().put(Usuario.class,usuario,"usuariosdb/");
                 }
 
                 @Override
                 public void doInUI() {
-
+                    i = new Intent(FormularioUpdate.this, MainActivity.class);
+                    i.putExtra("usuarioActualizado", usuarioExtra);
+                    setResult(RESULT_OK,i);
+                    finish();
                 }
             });
         });
