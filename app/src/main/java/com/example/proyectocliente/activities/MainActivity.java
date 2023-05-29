@@ -84,17 +84,19 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                                 if (data != null) {
                                     usuarioActualizado = (Usuario)
                                             data.getExtras().getSerializable("usuarioActualizado");
-                                    List<Usuario> listaUsuarios = adaptadorRecycler.getUsuarios();
-                                    int posicionUsuario = listaUsuarios.indexOf(usuarioActualizado);
+                                    System.out.println(usuarioActualizado);
+                                    int posicionUsuario = usuarios.indexOf(usuarioActualizado); // el error esta qui. no se porque da -1
+                                    System.out.println(posicionUsuario);
                                     if (posicionUsuario != -1) {
-                                        listaUsuarios.set(posicionUsuario, usuarioActualizado);
+                                        usuarios.set(posicionUsuario, usuarioActualizado);
+                                        adaptadorRecycler.actualizarUsuarios(usuarios);
                                         adaptadorRecycler.notifyDataSetChanged();
                                     }
-                                    Toast.makeText(this, "Usuario Actualizado" +
+                                    Toast.makeText(this, "Usuario Actualizado " +
                                                     usuarioActualizado.getName() + " " + usuarioActualizado.getLastName(),
                                             Toast.LENGTH_LONG).show();
                                 } else
-                                    Toast.makeText(this, "No actualizado", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(this, "No actualizado ", Toast.LENGTH_LONG).show();
                             } else if (result.getResultCode() == Activity.RESULT_CANCELED) {
                                 Toast.makeText(this, "Cancelado por el usuario",
                                         Toast.LENGTH_LONG).show();
@@ -147,7 +149,7 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                             @Override
                             public void doInBackground() {
                                 Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
-                                usuarios.add(position,usuario);
+                                usuarios.add(position, usuario);
                             }
 
                             @Override
