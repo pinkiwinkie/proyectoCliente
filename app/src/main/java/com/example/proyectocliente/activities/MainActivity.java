@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import com.example.proyectocliente.activities.logic.AdaptadorRecycler;
 import com.example.proyectocliente.R;
 import com.example.proyectocliente.activities.model.Oficio;
 import com.example.proyectocliente.activities.model.Usuario;
+import com.example.proyectocliente.activities.preferencias.PreferenciasActivity;
 import com.example.proyectocliente.base.BaseActivity;
 import com.example.proyectocliente.base.CallInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -84,9 +88,7 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                                 if (data != null) {
                                     usuarioActualizado = (Usuario)
                                             data.getExtras().getSerializable("usuarioActualizado");
-                                    System.out.println(usuarioActualizado);
                                     int posicionUsuario = data.getExtras().getInt("position");
-                                    System.out.println(posicionUsuario);
                                     if (posicionUsuario != -1) {
                                         adaptadorRecycler.actualizarUsuarios(posicionUsuario, usuarioActualizado);
                                     }
@@ -190,5 +192,23 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
         intent.putExtra("userSelected", user);
         intent.putExtra("position", position);
         launcherUpdateUser.launch(intent);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.configuracion):
+                Intent intentPreferenciasActivity = new Intent(MainActivity.this, PreferenciasActivity.class);
+                startActivity(intentPreferenciasActivity);
+                return true;
+            case (R.id.exit):
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

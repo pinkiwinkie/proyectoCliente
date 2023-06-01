@@ -28,6 +28,9 @@
         <activity
             android:name=".activities.FormularioUpdate"
             android:exported="false"/>
+        <activity
+            android:name=".activities.preferencias.PreferenciasActivity"
+            android:exported="false"/>
     </application>
 </manifest>
 
