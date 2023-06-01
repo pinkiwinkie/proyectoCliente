@@ -85,12 +85,10 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                                     usuarioActualizado = (Usuario)
                                             data.getExtras().getSerializable("usuarioActualizado");
                                     System.out.println(usuarioActualizado);
-                                    int posicionUsuario = usuarios.indexOf(usuarioActualizado); // el error esta qui. no se porque da -1
+                                    int posicionUsuario = data.getExtras().getInt("position");
                                     System.out.println(posicionUsuario);
                                     if (posicionUsuario != -1) {
-                                        usuarios.set(posicionUsuario, usuarioActualizado);
-                                        adaptadorRecycler.actualizarUsuarios(usuarios);
-                                        adaptadorRecycler.notifyDataSetChanged();
+                                        adaptadorRecycler.actualizarUsuarios(posicionUsuario, usuarioActualizado);
                                     }
                                     Toast.makeText(this, "Usuario Actualizado " +
                                                     usuarioActualizado.getName() + " " + usuarioActualizado.getLastName(),
@@ -190,6 +188,7 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
         Intent intent = new Intent(this, FormularioUpdate.class);
         intent.putExtra("oficios2", (ArrayList) oficios);
         intent.putExtra("userSelected", user);
+        intent.putExtra("position", position);
         launcherUpdateUser.launch(intent);
     }
 }

@@ -64,9 +64,9 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
         this.oficios = oficioList;
     }
 
-    public void actualizarUsuarios(List<Usuario> nuevaListaUsuarios) {
-        usuarios.clear();
-        usuarios.addAll(nuevaListaUsuarios);
+    public void actualizarUsuarios(int position, Usuario usuarioActualizado) {
+        usuarios.set(position, usuarioActualizado);
+        notifyItemChanged(position);
     }
 
 

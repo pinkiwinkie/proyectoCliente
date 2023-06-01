@@ -51,6 +51,7 @@ public class FormularioUpdate extends BaseActivity {
         spinner.setAdapter(myAdapter);
 
         usuarioSelected = (Usuario) bundle.getSerializable("userSelected");
+        int position = bundle.getInt("position");
         tietnombre.setText(usuarioSelected.getName());
         tietapellidos.setText(usuarioSelected.getLastName());
 
@@ -92,6 +93,7 @@ public class FormularioUpdate extends BaseActivity {
                 public void doInUI() {
                     i = new Intent(FormularioUpdate.this, MainActivity.class);
                     i.putExtra("usuarioActualizado", usuarioExtra);
+                    i.putExtra("position", position);
                     setResult(RESULT_OK,i);
                     finish();
                 }
