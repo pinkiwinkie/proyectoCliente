@@ -7,6 +7,14 @@ public class Parameters {
 //    public final static String URL_IMAGE = "http://10.11.19.18:80/image/";
 
     // CASA
-    public final static String URL = "http://192.168.1.22:8080/apidb/";
-    public final static String URL_IMAGE = "http://192.168.1.22/dashboard/images/images/";
+    public static String URL = "http://192.168.1.22:8080/apidb/";
+    public static String URL_IMAGE = "http://192.168.1.22/dashboard/images/images/";
+
+    public static void setURL(String URL) {
+        Parameters.URL = URL;
+    }
+
+    public static void setUrlImage(String urlImage) {
+        URL_IMAGE = urlImage;
+    }
 }

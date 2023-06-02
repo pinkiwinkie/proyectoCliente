@@ -10,6 +10,9 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.example.proyectocliente.R;
 
 public class PreferenciasFragment extends PreferenceFragmentCompat {
+    public PreferenciasFragment(){
+
+    }
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
         setPreferencesFromResource(R.xml.preferencias, rootKey);
@@ -17,5 +20,6 @@ public class PreferenciasFragment extends PreferenceFragmentCompat {
 //        editTextPreference.setOnBindEditTextListener(editText -> {
 //            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 //        });
+        //crear varibles y mandar la informacion al Main
     }
 }

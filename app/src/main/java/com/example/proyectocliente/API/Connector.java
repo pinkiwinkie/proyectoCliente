@@ -21,24 +21,24 @@ public class Connector {
         return connector;
     }
 
-    public <T> List<T> getAsList(Class<T> clazz, String path) {
-        String url = Parameters.URL + path;
+    public <T> List<T> getAsList(Class<T> clazz, String path, String urlParameter) {
+        String url = urlParameter + path;
         String jsonResponse = callMethodsObject.get(url);
         if (jsonResponse != null)
             return conversor.fromJsonList(jsonResponse, clazz);
         return null;
     }
 
-    public <T> T get(Class<T> clazz, String path) {
-        String url = Parameters.URL + path;
+    public <T> T get(Class<T> clazz, String path, String urlParameter) {
+        String url = urlParameter + path;
         String jsonResponse = callMethodsObject.get(url);
         if (jsonResponse != null)
             return conversor.fromJson(jsonResponse, clazz);
         return null;
     }
 
-    public <T> T post(Class<T> clazz, T data, String path) {
-        String url = Parameters.URL + path;
+    public <T> T post(Class<T> clazz, T data, String path, String urlParameter) {
+        String url = urlParameter + path;
         String jsonObject = conversor.toJson(data);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
         String jsonResponse = callMethodsObject.post(url, body);
@@ -47,8 +47,8 @@ public class Connector {
         return null;
     }
 
-    public <T> T put(Class<T> clazz, T data, String path) {
-        String url = Parameters.URL + path;
+    public <T> T put(Class<T> clazz, T data, String path, String urlParameter) {
+        String url = urlParameter + path;
         String jsonObject = conversor.toJson(data);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject);
         String jsonResponse = callMethodsObject.put(url, body);
@@ -57,8 +57,8 @@ public class Connector {
         return null;
     }
 
-    public <T> T delete(Class<T> clazz, String path) {
-        String url = Parameters.URL + path;
+    public <T> T delete(Class<T> clazz, String path, String urlParameter) {
+        String url = urlParameter + path;
         String jsonResponse = callMethodsObject.delete(url);
         if (jsonResponse != null)
             return conversor.fromJson(jsonResponse, clazz);

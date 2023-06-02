@@ -56,7 +56,8 @@ public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.Vi
 
     @Override
     public int getItemCount() {
-        return usuarios.size();
+//        return usuarios.size();
+        return 0;
     }
 
     public void setData(List<Usuario> usuarioList, List<Oficio> oficioList) {

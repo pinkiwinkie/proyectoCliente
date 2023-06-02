@@ -47,4 +47,5 @@
 <!--            android:title="Password"-->
 <!--            app:summary="Password de acceso para el usuario" />-->
 <!--    </PreferenceCategory>-->
+
 </PreferenceScreen>

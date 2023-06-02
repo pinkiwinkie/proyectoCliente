@@ -78,7 +78,7 @@ public class FormularioActivity extends BaseActivity {
             executeCall(new CallInterface() {
                 @Override
                 public void doInBackground() {
-                    usuarioExtra = Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
+//                    usuarioExtra = Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
                 }
 
                 @Override

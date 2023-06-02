@@ -26,6 +26,7 @@ import com.example.proyectocliente.activities.model.Usuario;
 import com.example.proyectocliente.activities.preferencias.PreferenciasActivity;
 import com.example.proyectocliente.base.BaseActivity;
 import com.example.proyectocliente.base.CallInterface;
+import com.example.proyectocliente.base.Parameters;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -38,8 +39,10 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
     private List<Usuario> usuarios;
     private List<Oficio> oficios;
     private AdaptadorRecycler adaptadorRecycler;
-    private ActivityResultLauncher<Intent> launcherUpdateUser;
+    private ActivityResultLauncher<Intent> launcherUpdateUser,
+            activityConfiguration;
     private Usuario usuario;
+    private String urlParameter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,8 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
             launcherAddUser.launch(intent);
         });
 
+        activityConfiguration = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        });
 
         //dinamizacion del recycler
 
@@ -127,10 +132,10 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                 executeCall(new CallInterface() {
                     @Override
                     public void doInBackground() {
-                        usuario = usuarios.get(position);
-                        int i = usuario.getId();
-                        usuarios.remove(usuario);
-                        usuario = Connector.getConector().delete(Usuario.class, "usuariosdb/" + i);
+//                        usuario = usuarios.get(position);
+//                        int i = usuario.getId();
+//                        usuarios.remove(usuario);
+//                        usuario = Connector.getConector().delete(Usuario.class, "usuariosdb/" + i);
 
                     }
 
@@ -148,8 +153,8 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                         executeCall(new CallInterface() {
                             @Override
                             public void doInBackground() {
-                                Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
-                                usuarios.add(position, usuario);
+//                                Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
+//                                usuarios.add(position, usuario);
                             }
 
                             @Override
@@ -171,8 +176,8 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
 
     @Override
     public void doInBackground() {
-        usuarios = Connector.getConector().getAsList(Usuario.class, "usuariosdb/");
-        oficios = Connector.getConector().getAsList(Oficio.class, "oficiosdb/");
+//        usuarios = Connector.getConector().getAsList(Usuario.class, "usuariosdb/");
+//        oficios = Connector.getConector().getAsList(Oficio.class, "oficiosdb/");
     }
 
     @Override
@@ -202,8 +207,9 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case (R.id.configuracion):
-                Intent intentPreferenciasActivity = new Intent(MainActivity.this, PreferenciasActivity.class);
-                startActivity(intentPreferenciasActivity);
+                Intent intent = new Intent(MainActivity.this, PreferenciasActivity.class);
+                activityConfiguration.launch(intent);
+
                 return true;
             case (R.id.exit):
                 finish();
