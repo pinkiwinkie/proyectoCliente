@@ -18,7 +18,7 @@ public class GestionPreferencias {
     }
 
     private void inicializa(Context context) {
-        if (pref == null)
+        if (pref == null && context != null)
             pref = PreferenceManager.getDefaultSharedPreferences(context);
     }
 

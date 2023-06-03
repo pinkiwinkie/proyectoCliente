@@ -4,11 +4,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -42,12 +44,14 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
     private ActivityResultLauncher<Intent> launcherUpdateUser,
             activityConfiguration;
     private Usuario usuario;
-    private String urlParameter;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = getApplicationContext();
 
         recyclerView = findViewById(R.id.recycler);
         addUser = findViewById(R.id.addUser);
@@ -56,6 +60,11 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
         recyclerView.setAdapter(adaptadorRecycler);
         adaptadorRecycler.setOnClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        PreferenceManager.setDefaultValues(this,R.xml.preferencias,false);
+        Parameters.setContext(context);
+
+
 
         ActivityResultLauncher<Intent> launcherAddUser =
                 registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -132,10 +141,10 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                 executeCall(new CallInterface() {
                     @Override
                     public void doInBackground() {
-//                        usuario = usuarios.get(position);
-//                        int i = usuario.getId();
-//                        usuarios.remove(usuario);
-//                        usuario = Connector.getConector().delete(Usuario.class, "usuariosdb/" + i);
+                        usuario = usuarios.get(position);
+                        int i = usuario.getId();
+                        usuarios.remove(usuario);
+                        usuario = Connector.getConector().delete(Usuario.class, "usuariosdb/" + i);
 
                     }
 
@@ -153,8 +162,8 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
                         executeCall(new CallInterface() {
                             @Override
                             public void doInBackground() {
-//                                Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
-//                                usuarios.add(position, usuario);
+                                usuario = Connector.getConector().post(Usuario.class, usuario, "usuariosdb/");
+                                usuarios.add(position, usuario);
                             }
 
                             @Override
@@ -176,8 +185,8 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
 
     @Override
     public void doInBackground() {
-//        usuarios = Connector.getConector().getAsList(Usuario.class, "usuariosdb/");
-//        oficios = Connector.getConector().getAsList(Oficio.class, "oficiosdb/");
+        usuarios = Connector.getConector().getAsList(Usuario.class, "usuariosdb/");
+        oficios = Connector.getConector().getAsList(Oficio.class, "oficiosdb/");
     }
 
     @Override

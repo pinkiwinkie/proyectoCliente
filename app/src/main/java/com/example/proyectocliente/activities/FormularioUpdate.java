@@ -86,7 +86,7 @@ public class FormularioUpdate extends BaseActivity {
             executeCall(new CallInterface() {
                 @Override
                 public void doInBackground() {
-//                   usuarioExtra = Connector.getConector().put(Usuario.class,usuario,"usuariosdb/");
+                   usuarioExtra = Connector.getConector().put(Usuario.class,usuario,"usuariosdb/");
                 }
 
                 @Override
