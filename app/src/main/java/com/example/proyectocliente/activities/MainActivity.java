@@ -64,8 +64,6 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
         PreferenceManager.setDefaultValues(this,R.xml.preferencias,false);
         Parameters.setContext(context);
 
-
-
         ActivityResultLauncher<Intent> launcherAddUser =
                 registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                         result -> {
