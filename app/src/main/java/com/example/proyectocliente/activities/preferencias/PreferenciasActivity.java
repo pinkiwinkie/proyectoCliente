@@ -14,6 +14,12 @@ public class PreferenciasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
+
+        PreferenciasFragment fragment = new PreferenciasFragment();
+        Bundle args = new Bundle();
+        args.putString("context", getApplicationContext().getPackageName());
+        fragment.setArguments(args);
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contenedorAjustes, new PreferenciasFragment()).commit();
 

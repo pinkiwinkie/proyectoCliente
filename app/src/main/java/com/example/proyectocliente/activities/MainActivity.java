@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         PreferenceManager.setDefaultValues(this,R.xml.preferencias,false);
-        Parameters.setContext(context);
+//        Parameters.setContext(context);
 
         ActivityResultLauncher<Intent> launcherAddUser =
                 registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -215,7 +215,8 @@ public class MainActivity extends BaseActivity implements CallInterface, View.On
         switch (item.getItemId()) {
             case (R.id.configuracion):
                 Intent intent = new Intent(MainActivity.this, PreferenciasActivity.class);
-                activityConfiguration.launch(intent);
+//                activityConfiguration.launch(intent);
+                startActivity(intent);
 
                 return true;
             case (R.id.exit):

@@ -17,8 +17,9 @@ public class GestionPreferencias {
         return gestionPreferencias;
     }
 
-    private void inicializa(Context context) {
+    void inicializa(Context context) {
         if (pref == null && context != null)
+//            pref = context.getSharedPreferences("activity_ajustes", Context.MODE_PRIVATE);
             pref = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
