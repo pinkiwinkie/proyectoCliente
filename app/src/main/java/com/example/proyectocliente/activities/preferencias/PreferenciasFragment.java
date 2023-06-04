@@ -18,14 +18,9 @@ public class PreferenciasFragment extends PreferenceFragmentCompat {
     }
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-        Context context = (Context) getArguments().getSerializable("context");
-        GestionPreferencias.getInstance().inicializa(context);
+//        Context context = (Context) getArguments().getSerializable("context");
+//        GestionPreferencias.getInstance().inicializa(context);
         setPreferencesFromResource(R.xml.preferencias, rootKey);
-
-
     }
 }
-//        EditTextPreference editTextPreference = findPreference("etpPassword");
-//        editTextPreference.setOnBindEditTextListener(editText -> {
-//            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-//        });
+

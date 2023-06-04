@@ -21,7 +21,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        connector = Connector.getConector();
+     //   connector = Connector.getConector();
         progressBar = new MyProgressBar(this);
     }
 
