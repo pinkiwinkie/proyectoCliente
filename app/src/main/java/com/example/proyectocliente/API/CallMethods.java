@@ -10,7 +10,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 
 public class CallMethods {
-    private Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.22:8080/apidb/").build();
+    private Retrofit retrofit = new Retrofit.Builder().baseUrl(Parameters.URL).build();
     private APIService service = retrofit.create(APIService.class);
     private static CallMethods callMethods;
 

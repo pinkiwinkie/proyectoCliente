@@ -26,7 +26,7 @@
             android:title="Path"
             app:summary="Path de las imagenes" />
         <EditTextPreference
-            android:defaultValue="java"
+            android:defaultValue="apidb"
             android:key="etpSchema"
             android:selectAllOnFocus="true"
             android:singleLine="true"
